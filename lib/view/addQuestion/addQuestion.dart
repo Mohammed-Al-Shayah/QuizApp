@@ -27,7 +27,6 @@ class _AddQuestionState extends State<AddQuestion> with Helpers {
  late int _correctAnswerIndex = 0;
 
 
-
  @override
   void initState() {
     // TODO: implement initState
@@ -63,16 +62,16 @@ class _AddQuestionState extends State<AddQuestion> with Helpers {
                   labelText: 'Question',
                   hintText: 'Enter The Question',
                   labelStyle: TextStyle(color: Colors.grey.shade600),
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.question_mark_sharp,
                     color: Colors.grey,
                   ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.teal)),
+                      borderSide:const BorderSide(color: Colors.teal)),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
+                    borderSide:const  BorderSide(
                       color: Colors.teal,
                     ),
                   ),
