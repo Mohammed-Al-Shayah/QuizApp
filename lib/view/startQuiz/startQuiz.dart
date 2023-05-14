@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizapp/model/quize.dart';
 import 'package:quizapp/state_mangments/quiz_provider.dart';
+import 'package:quizapp/view/widgets/actionsWidget.dart';
 
 class StartQuiz extends StatefulWidget {
   const StartQuiz({Key? key}) : super(key: key);
@@ -11,8 +12,10 @@ class StartQuiz extends StatefulWidget {
 }
 
 class _StartQuizState extends State<StartQuiz> {
+  late int _currentIndex = 0;
+ late bool _completed = false;
+  late int _score=0;
 
-  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -20,11 +23,12 @@ class _StartQuizState extends State<StartQuiz> {
     super.initState();
     Provider.of<QuizProvider>(context, listen: false).read();
   }
+
   @override
   Widget build(BuildContext context) {
     List<Quiz> quizzes = Provider.of<QuizProvider>(context).quizzes;
 
-    if (quizzes.isEmpty || quizzes.length<5) {
+    if (quizzes.isEmpty || quizzes.length < 5) {
       // show error widget
       return Scaffold(
         appBar: AppBar(
@@ -37,12 +41,20 @@ class _StartQuizState extends State<StartQuiz> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:  [
-               const Text("Sorry!",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.teal),),
-                const SizedBox(height: 10,),
+              children: [
+                const Text(
+                  "Sorry!",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 const Text('You must add at least 5 question to start'),
                 const SizedBox(height: 10),
-                Image.asset('assets/images/faq.png',height: 200),
+                Image.asset('assets/images/faq.png', height: 200),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
@@ -52,15 +64,14 @@ class _StartQuizState extends State<StartQuiz> {
                   style: ElevatedButton.styleFrom(
                     elevation: 5,
                     backgroundColor: Colors.teal,
-
-
                   ),
-                ),              ],
-            )),
+                ),
+              ],
+        )),
       );
     }
-    Quiz quiz = quizzes[_currentIndex];
 
+    Quiz quiz = quizzes[_currentIndex];
 
     return Scaffold(
       appBar: AppBar(
@@ -77,9 +88,9 @@ class _StartQuizState extends State<StartQuiz> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Text(
+                Text(
                   "Question ${_currentIndex + 1}",
-                  style:const TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.teal,
@@ -87,7 +98,7 @@ class _StartQuizState extends State<StartQuiz> {
                 ),
                 Text(
                   " / ${quizzes.length}",
-                  style:const TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey,
@@ -95,17 +106,23 @@ class _StartQuizState extends State<StartQuiz> {
                 ),
               ],
             ),
-            const SizedBox(height: 25,),
+            const SizedBox(
+              height: 25,
+            ),
             Container(
               decoration: BoxDecoration(
                 color: Colors.teal,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding:const  EdgeInsets.symmetric(vertical: 7,horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                 child: Text(
-                quiz.question ,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
+                  quiz.question,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
             ),
@@ -131,16 +148,15 @@ class _StartQuizState extends State<StartQuiz> {
                     answer = '';
                 }
                 return Padding(
-                  padding: const EdgeInsets.only(top: 5,bottom: 5),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                   child: Ink(
-                      decoration: BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: Colors.teal,
-                        ),
+                      border: Border.all(
+                        color: Colors.teal,
                       ),
+                    ),
                     child: ListTile(
-
                       title: Text(
                         answer,
                         style: const TextStyle(
@@ -148,12 +164,36 @@ class _StartQuizState extends State<StartQuiz> {
                         ),
                       ),
                       onTap: () {
+                        if (answer == quizzes[index].correctAnswer) {
+                            setState(() {
+                              _score++;
+                            });
+                        }
                         if (_currentIndex < quizzes.length - 1) {
                           setState(() {
                             _currentIndex++;
                           });
-                        } else {
+                        }
+                        else {
                           // show result widget
+                          setState(() {
+                           _completed = true;
+                          });
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                               return ActionsWidget(
+                                  text: 'Congratulations!',
+                                  image: 'assets/images/result.jpg',
+                                  score: 'Your Score : $_score / ${quizzes.length} ',
+                                  motivationText: 'Keep up the good work!',
+                                  onPressed: () =>
+                                      Navigator.pushReplacementNamed(context, "homeScreen"),
+                                );
+                              },
+                            ),
+                          );
                         }
                       },
                     ),

@@ -8,7 +8,7 @@ mixin Helpers{
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
 
-        duration: Duration(milliseconds: 1200),
+        duration: Duration(milliseconds: 800),
         content: Text(message),
         // if error the backgroundColor is red else backgroundColor green
         backgroundColor: error?Colors.red:Colors.green,

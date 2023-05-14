@@ -11,8 +11,9 @@ class Quiz {
 
 
   Quiz();
+
   Quiz.fromMap({required Map<String,dynamic>rowMap}){
-    id=rowMap['id']??0;
+    id=rowMap['id'];
     question=rowMap['question'];
     correctAnswer=rowMap['correctAnswer'];
     answer1=rowMap['answer1'];

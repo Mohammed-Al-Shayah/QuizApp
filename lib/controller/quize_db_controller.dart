@@ -18,7 +18,8 @@ class QuizDbController extends DbOperations<Quiz> {
   Future<bool> delete(int id) async {
     // TODO: implement delete
     int countOfDeletedRows = await database.delete('quiz',where: 'id=?', whereArgs:[id]);
-    return countOfDeletedRows >0;  }
+    return countOfDeletedRows >0;
+  }
 
   @override
   Future<List<Quiz>> read() async{

@@ -11,6 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Quiz App'),
         centerTitle: true,
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 25,
         child: Column(
           children:  [
-            UserAccountsDrawerHeader(
+             const UserAccountsDrawerHeader(
               accountName: Text(
                 'Mohammed AL Shayah',
                 style: TextStyle(color: Colors.white),
@@ -31,26 +32,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.teal,
               ),
               currentAccountPicture: CircleAvatar(
-                child: Text('MS'),
+                    child: const Text('MS'),
                 backgroundColor: Colors.pinkAccent,
               ),
             ),
             ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('Create Quiz'),
+              leading:const Icon(Icons.edit),
+              title:const Text('Create Quiz'),
               onTap: (){
                  Navigator.pushNamed(context, "CreateQuiz");
               },
             ),
             ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Start Quiz'),
+              leading:const Icon(Icons.help_center),
+              title:const Text('Start Quiz'),
               onTap: (){
                 Navigator.pushNamed(context, "StartQuiz");
               },
             ),
-            Divider(),
-            ListTile(
+            const Divider(),
+            const ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Exit'),
             ),
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, "StartQuiz");
                 },
-                child: Text("Let's Start!"),
+                child: const Text("Let's Start!"),
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
                   backgroundColor: Colors.teal,
