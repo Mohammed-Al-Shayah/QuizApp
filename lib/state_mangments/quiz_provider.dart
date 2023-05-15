@@ -19,15 +19,16 @@ class QuizProvider extends ChangeNotifier {
   }
 
 
-  Future<bool>delete({required int id})async{
-    bool deleted =await _quizDbController.delete(id);
-    if(deleted){
-      quizzes.removeWhere((element) => element.id==id);
-      // quizzes.removeAt(id);
+
+  Future<bool> deleteQuiz({required int id}) async {
+    bool deleted = await _quizDbController.delete(id);
+    if (deleted) {
+      quizzes.removeWhere((element) => element.id == id);
       notifyListeners();
     }
     return deleted;
   }
+
 
   Future<ProcessResponse>update({required Quiz updateQuiz,required int index})async{
     bool updated =await _quizDbController.update(updateQuiz);

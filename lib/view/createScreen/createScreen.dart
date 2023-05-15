@@ -175,7 +175,7 @@ class _CreateQuizState extends State<CreateQuiz> with Helpers {
 
   Future<void> deleteQuestion({required int id}) async {
     bool deleted =
-        await Provider.of<QuizProvider>(context, listen: false).delete(id: id);
+        await Provider.of<QuizProvider>(context, listen: false).deleteQuiz(id: id);
     String message = deleted ? "deleted Successfully" : "deleted failed";
     showSnackBar(context: context, message: message, error: !deleted);
   }

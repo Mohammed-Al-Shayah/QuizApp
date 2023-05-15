@@ -156,6 +156,7 @@ class _AddQuestionState extends State<AddQuestion> with Helpers {
               ElevatedButton(
                 onPressed: () async{
                   await _preformSave();
+                  // Navigator.pushNamed(context, "CreateQuiz");
                 },
                 child: const Text('Add question'),
                 style: ElevatedButton.styleFrom(
@@ -206,6 +207,10 @@ class _AddQuestionState extends State<AddQuestion> with Helpers {
     bool created = await Provider.of<QuizProvider>(context,listen: false).create(quiz:quiz);
       String message =created ? "Created Successfuly" : "Create failed";
     showSnackBar(context: context,message:message, error: !created);
+    if(created){
+      Navigator.pop(context, "CreateQuiz");
+
+    }
 
   }
 }

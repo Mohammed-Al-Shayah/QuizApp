@@ -14,7 +14,7 @@ class StartQuiz extends StatefulWidget {
 class _StartQuizState extends State<StartQuiz> {
   late int _currentIndex = 0;
  late bool _completed = false;
-  late int _score=0;
+   int _score=0;
 
 
   @override
@@ -130,7 +130,8 @@ class _StartQuizState extends State<StartQuiz> {
               shrinkWrap: true,
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
-                String answer;
+               late String answer;
+
                 switch (index) {
                   case 0:
                     answer = quiz.answer1;
@@ -164,12 +165,10 @@ class _StartQuizState extends State<StartQuiz> {
                         ),
                       ),
                       onTap: () {
-                        if (answer == quizzes[index].correctAnswer) {
-                            setState(() {
-                              _score++;
-                            });
+                        if (index == quizzes[_currentIndex].correctAnswer) {
+                          _score++;
                         }
-                        if (_currentIndex < quizzes.length - 1) {
+                          if (_currentIndex < quizzes.length - 1) {
                           setState(() {
                             _currentIndex++;
                           });
@@ -179,22 +178,45 @@ class _StartQuizState extends State<StartQuiz> {
                           setState(() {
                            _completed = true;
                           });
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                               return ActionsWidget(
-                                  text: 'Congratulations!',
-                                  image: 'assets/images/result.jpg',
-                                  score: 'Your Score : $_score / ${quizzes.length} ',
-                                  motivationText: 'Keep up the good work!',
-                                  onPressed: () =>
-                                      Navigator.pushReplacementNamed(context, "homeScreen"),
-                                );
-                              },
-                            ),
-                          );
+
+
+                          if (_score == quizzes.length || _score >= quizzes.length / 2) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ActionsWidget(
+                                    text: 'Congratulations!',
+                                    image: 'assets/images/result.jpg',
+                                    score: 'Your Score: $_score / ${quizzes.length}',
+                                    motivationText: 'Keep up the good work!',
+                                    onPressed: () =>
+                                        Navigator.pushReplacementNamed(context, "homeScreen"),
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ActionsWidget(
+                                    text: 'Oops!',
+                                    image: 'assets/images/fail.png',
+                                    score: 'Your Score: $_score / ${quizzes.length}',
+                                    motivationText: 'Sorry, better luck next time!',
+                                    onPressed: () =>
+                                        Navigator.pushReplacementNamed(context, "homeScreen"),
+                                  );
+                                },
+                              ),
+                            );
+                          }
+
+
                         }
+
                       },
                     ),
                   ),
