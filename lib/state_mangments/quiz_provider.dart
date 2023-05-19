@@ -18,8 +18,6 @@ class QuizProvider extends ChangeNotifier {
     return newRowId !=0;
   }
 
-
-
   Future<bool> deleteQuiz({required int id}) async {
     bool deleted = await _quizDbController.delete(id);
     if (deleted) {

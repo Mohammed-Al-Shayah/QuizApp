@@ -8,6 +8,9 @@ import 'package:quizapp/view/homeScreen/HomeScreen.dart';
 import 'package:quizapp/view/splashscreen.dart';
 import 'package:quizapp/view/startQuiz/startQuiz.dart';
 
+
+//محمد طارق الشياح 20190264
+//أحمد وائل دخان 20192585
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await DbController().initDatabase();

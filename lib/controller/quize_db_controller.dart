@@ -11,15 +11,16 @@ class QuizDbController extends DbOperations<Quiz> {
   Future<int> create(Quiz model) async{
     // TODO: implement create
     int newRowId =  await database.insert('quiz', model.toMap());
-    return newRowId  ;
+    return newRowId;
     }
 
   @override
   Future<bool> delete(int id) async {
     // TODO: implement delete
     int countOfDeletedRows = await database.delete('quiz',where: 'id=?', whereArgs:[id]);
-    return countOfDeletedRows >0;
+    return countOfDeletedRows >0 ;
   }
+
 
   @override
   Future<List<Quiz>> read() async{

@@ -193,15 +193,12 @@ class _AddQuestionState extends State<AddQuestion> with Helpers {
 
 
   Quiz get quiz {
-    Quiz newQuiz =Quiz();
-    newQuiz.answer1=_answerTextControllers[0].text;
-    newQuiz.answer2=_answerTextControllers[1].text;
-    newQuiz.answer3=_answerTextControllers[2].text;
-    newQuiz.answer4=_answerTextControllers[3].text;
-    newQuiz.question=_questionTextController.text;
-    newQuiz.correctAnswer=_correctAnswerIndex;
+    Quiz newQuiz = Quiz(answer1:_answerTextControllers[0].text , answer2:_answerTextControllers[1].text , answer3:_answerTextControllers[2].text , answer4:_answerTextControllers[3].text , question:_questionTextController.text , correctAnswer:_correctAnswerIndex );
+    newQuiz.answer1 = _answerTextControllers[0].text;
+
     return newQuiz;
   }
+
 
   Future<void> save() async {
     bool created = await Provider.of<QuizProvider>(context,listen: false).create(quiz:quiz);

@@ -1,7 +1,5 @@
-
 class Quiz {
-
-  late int id ;
+  late int? id;
   late String question;
   late String answer1;
   late String answer2;
@@ -9,9 +7,15 @@ class Quiz {
   late String answer4;
   late int correctAnswer;
 
-
-  Quiz();
-
+  Quiz({
+    this.id,
+    required this.question,
+    required this.answer1,
+    required this.answer2,
+    required this.answer3,
+    required this.answer4,
+    required this.correctAnswer,
+  });
   Quiz.fromMap({required Map<String,dynamic>rowMap}){
     id=rowMap['id'];
     question=rowMap['question'];
